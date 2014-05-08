@@ -41,11 +41,32 @@ var user = {
     $.ajax({ url: path+"user/get.json", dataType: 'json', async: false, success: function(data) {result = data;} });
     return result;
   },
+  
+  'passwordreset':function(username,email)
+  {
+    var result = {};
+    $.ajax({ url: path+"user/passwordreset.json", data: "&username="+username+"&email="+email, dataType: 'json', async: false, success: function(data) {result = data;} });
+    return result;
+  },
 
   'set':function(data)
   {
     var result = {};
     $.ajax({ url: path+"user/set.json", data: "&data="+JSON.stringify(data) ,dataType: 'json', async: false, success: function(data) {result = data;} });
+    return result;
+  },
+
+  'newapikeywrite':function()
+  {
+    var result = {};
+    $.ajax({ url: path+"user/newapikeywrite.json", dataType: 'json', async: false, success: function(data) {result = data;} });
+    return result;
+  },
+  
+  'newapikeyread':function()
+  {
+    var result = {};
+    $.ajax({ url: path+"user/newapikeyread.json", dataType: 'json', async: false, success: function(data) {result = data;} });
     return result;
   }
 
