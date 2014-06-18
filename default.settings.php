@@ -15,8 +15,8 @@
     
     $feed_settings = array(
 
-        'creatable_engines'=>array('MYSQL','TIMESTORE','PHPTIMESERIES','GRAPHITE','PHPTIMESTORE'),
-
+        'enable_mysql_all'=>true,
+        
         'timestore'=>array(
             'adminkey'=>"_TS_ADMINKEY_"
         ),
@@ -48,6 +48,11 @@
       'from'=>array('_SMTP_EMAIL_ADDR_' => '_SMTP_EMAIL_NAME_')
     );
 
+    // To enable / disable password reset set to either true / false
+    // default value of " _ENABLE_PASSWORD_RESET_ " required for .deb only
+    // uncomment 1 of the 2 following lines & comment out the 3rd line.
+    // $enable_password_reset = true;
+    // $enable_password_reset = false;
     $enable_password_reset = _ENABLE_PASSWORD_RESET_;
     
     // Checks for limiting garbage data?
@@ -94,4 +99,4 @@
     $dbtest = TRUE;
 
     // Log4PHP configuration
-    $log4php_configPath = '/etc/emoncms/emoncms_log4j.xml';
+    $log4php_configPath = 'logconfig.xml';

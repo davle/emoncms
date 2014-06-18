@@ -1,5 +1,9 @@
 <?php 
-  global $path; 
+  global $path, $feed_settings; 
+  
+  $enable_mysql_all = 0;
+  if (isset($feed_settings['enable_mysql_all']) && $feed_settings['enable_mysql_all']==true) $enable_mysql_all = 1;
+
 ?>
 <script type="text/javascript" src="<?php echo $path; ?>Modules/node/node.js"></script>
 <script type="text/javascript" src="<?php echo $path; ?>Modules/node/processlist.js"></script>
@@ -67,18 +71,20 @@
                         <span class="add-on feed-engine-label">Feed engine: </span>
                         <select id="feed-engine">
 
-                        <!--<optgroup label="Recommended">-->
-                        <option value=6 selected>Fixed Interval With Averaging</option>
+                        <optgroup label="Recommended">
+                        <option value=7 selected>Redis Time Series</option>
+                        <option value=8 >Redis FINA</option>
+                        <option value=6 >Fixed Interval With Averaging</option>
                         <option value=5 >Fixed Interval No Averaging</option>
                         <option value=2 >Variable Interval No Averaging</option>
-                        <!--</optgroup>-->
+                        </optgroup>
 
-                        <!--<optgroup label="Other">
+                        <optgroup label="Other">
                         <option value=4 >PHPTIMESTORE (Port of timestore to PHP)</option>  
                         <option value=1 >TIMESTORE (Requires installation of timestore)</option>
                         <option value=3 >GRAPHITE (Requires installation of graphite)</option>
                         <option value=0 >MYSQL (Slow when there is a lot of data)</option>
-                        </optgroup>-->
+                        </optgroup>
 
                         </select>
 
@@ -122,6 +128,8 @@
 
   var path = "<?php echo $path; ?>";
   
+  processlist_ui.enable_mysql_all = <?php echo $enable_mysql_all; ?>;
+  
   var nodes = node.getall();
   
   var decoders = {
@@ -136,7 +144,8 @@
       updateinterval: 60,
       variables: [
         {name: 'Temperature', type: 1, scale: 0.01, units: '°C' },
-        {name: 'Battery Voltage', type: 1, scale:0.001, units: 'V'}
+        {name: 'Battery Voltage', type: 1, scale:0.001, units: 'V'},
+        {name: 'RSSI', type: 0 }
       ]
     },
     
@@ -149,7 +158,8 @@
         {name: 'Power 3', type: 1, units: 'W'}, 
         {name: 'Power 4', type: 1, units: 'W'},
         {name: 'Vrms', type: 1, scale: 0.01, units: 'V'}, 
-        {name: 'temp', type: 1, scale: 0.1, units: '°C'}
+        {name: 'temp', type: 1, scale: 0.1, units: '°C'},
+        {name: 'RSSI', type: 0 }
       ]
     },
 
@@ -165,7 +175,8 @@
         {name: 'Wh CT1', type: 2, units: 'Wh'}, 
         {name: 'Wh CT2', type: 2, units: 'Wh'}, 
         {name: 'Wh CT3', type: 2, units: 'Wh'}, 
-        {name: 'Wh CT4', type: 2, units: 'Wh'}
+        {name: 'Wh CT4', type: 2, units: 'Wh'},
+        {name: 'RSSI', type: 0 }
       ]
     },
     
@@ -177,6 +188,7 @@
         {name: 'External temperature', type: 1, scale: 0.1, units: '°C'}, 
         {name: 'Humidity', type: 1, scale: 0.1, units: '%'}, 
         {name: 'Battery Voltage', type: 1, scale: 0.1, units: 'V'},
+        {name: 'RSSI', type: 0 }
       ]
     },
     
